@@ -5,11 +5,31 @@ output:
     toc: false
 ---
 
-The goal of this new template is to simplify the setup and maintenance of a research website.
-Specifically,
+This website demonstrates the current basic functionality of workflowr to
+archive objects and restore them for later comparison.
 
-*  Easier to build and extend the website using the new tools in the [rmarkdown][] package and [latest RStudio release][rstudio]
-*  Easier to deploy the website with Git and GitHub by only using one branch
+The analysis [archive.html](archive.html) simulates some data from a normal 
+distribution based on a randomly chosen mean value. Each time it is committed 
+and built, new archive files are created with `wflow_archive`. These are then 
+restored for comparison with `wflow_restore`. The archive files are saved in 
+`archive/archive.Rmd/`.
 
-[rmarkdown]: http://rmarkdown.rstudio.com/rmarkdown_websites.htm
-[rstudio]: https://www.rstudio.com/products/rstudio/download/preview/
+This is an early prototype with many decisions still to be made. See the section
+[Decisions](archive.html#decisions).
+
+To install this version of [workflowr](https://github.com/jdblischak/workflowr)
+for testing, install from the branch
+[feature_archive](https://github.com/jdblischak/workflowr/tree/feature_archive):
+
+```{r feature-archive, eval=FALSE}
+devtools::install_github("jdblischak/workflowr@feature_archive",
+                         build_vignettes = TRUE)
+```
+
+To return to the latest stable version of workflowr after testing, run the
+following:
+
+```{r stable, eval=FALSE}
+devtools::install_github("jdblischak/workflowr",
+                         build_vignettes = TRUE)
+```
