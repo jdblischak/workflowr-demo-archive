@@ -76,7 +76,9 @@ What beyond the sha1? The commit message? The date?
 How to commit them? Have `wflow_commit` check the archive directory? This may
 need to wait until a configuration file is implemented.
 
-What about the files created while testing? These will have the wrong commit.
+What about the files created while testing? These will have the wrong commit. 
+Need some mechanism for detecting and removing archives created by files with
+non-saved changes.
 
 ## Session Information
 
