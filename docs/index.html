@@ -188,7 +188,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jdblischak/workflowr">
+  <a href="https://github.com/jdblischak/workflowr-demo-archive">
     <span class="fa fa-github"></span>
      
   </a>
@@ -207,11 +207,15 @@ $(document).ready(function () {
 </div>
 
 
-<p>The goal of this new template is to simplify the setup and maintenance of a research website. Specifically,</p>
-<ul>
-<li>Easier to build and extend the website using the new tools in the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.htm">rmarkdown</a> package and <a href="https://www.rstudio.com/products/rstudio/download/preview/">latest RStudio release</a></li>
-<li>Easier to deploy the website with Git and GitHub by only using one branch</li>
-</ul>
+<p>This website demonstrates the current basic functionality of workflowr to archive objects and restore them for later comparison.</p>
+<p>The analysis <a href="archive.html" class="uri">archive.html</a> simulates some data from a normal distribution based on a randomly chosen mean value. Each time it is committed and built, new archive files are created with <code>wflow_archive</code>. These are then restored for comparison with <code>wflow_restore</code>. The archive files are saved in <code>archive/archive.Rmd/</code>.</p>
+<p>This is an early prototype with many decisions still to be made. See the section <a href="archive.html#decisions">Decisions</a>.</p>
+<p>To install this version of <a href="https://github.com/jdblischak/workflowr">workflowr</a> for testing, install from the branch <a href="https://github.com/jdblischak/workflowr/tree/feature_archive">feature_archive</a>:</p>
+<pre class="r"><code>devtools::install_github(&quot;jdblischak/workflowr@feature_archive&quot;,
+                         build_vignettes = TRUE)</code></pre>
+<p>To return to the latest stable version of workflowr after testing, run the following:</p>
+<pre class="r"><code>devtools::install_github(&quot;jdblischak/workflowr&quot;,
+                         build_vignettes = TRUE)</code></pre>
 
 <hr>
 <p>
