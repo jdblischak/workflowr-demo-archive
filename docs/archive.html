@@ -9,8 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="First Last" />
+<meta name="author" content="John Blischak" />
 
+<meta name="date" content="2017-02-06" />
 
 <title>Test wflow_archive and wflow_restore</title>
 
@@ -302,14 +303,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Test wflow_archive and wflow_restore</h1>
-<h4 class="author"><em>First Last</em></h4>
-<h4 class="date"><em>YYYY-MM-DD</em></h4>
+<h4 class="author"><em>John Blischak</em></h4>
+<h4 class="date"><em>2017-02-06</em></h4>
 
 </div>
 
 
 <p><strong>Last updated:</strong> 2017-02-06</p>
-<p><strong>Code version:</strong> 74dd2e3</p>
+<p><strong>Code version:</strong> c207e3c</p>
 <pre class="r"><code>library(&quot;workflowr&quot;)
 library(&quot;ggplot2&quot;)
 theme_set(theme_bw())</code></pre>
@@ -325,11 +326,11 @@ normal_dist &lt;- rnorm(5, mean = mean_value)</code></pre>
 <pre class="r"><code>str(restored)</code></pre>
 <pre><code>List of 2
  $ mean_value :List of 2
-  ..$ 25abf3c: int 1
   ..$ 74dd2e3: int 7
+  ..$ c207e3c: int 7
  $ normal_dist:List of 2
-  ..$ 25abf3c: num [1:5] 1.058 2.174 0.709 2.602 1.304
-  ..$ 74dd2e3: num [1:5] 7.47 7.15 8.54 8.34 6.81</code></pre>
+  ..$ 74dd2e3: num [1:5] 7.47 7.15 8.54 8.34 6.81
+  ..$ c207e3c: num [1:5] 7.84 5.63 7.69 7.01 6.84</code></pre>
 <p>Analyze them.</p>
 <pre class="r"><code>mean_set &lt;- sapply(restored$mean_value, function(x) x)
 mean_estimate &lt;- sapply(restored$normal_dist, function(x) mean(x))
