@@ -1,7 +1,7 @@
 ---
 title: "Test wflow_archive and wflow_restore"
-author: "First Last"
-date: YYYY-MM-DD
+author: "John Blischak"
+date: 2017-02-06
 output: html_document
 ---
 
