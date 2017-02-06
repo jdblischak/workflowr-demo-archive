@@ -310,7 +310,7 @@ div.tocify {
 
 
 <p><strong>Last updated:</strong> 2017-02-06</p>
-<p><strong>Code version:</strong> c207e3c</p>
+<p><strong>Code version:</strong> 393a8dc</p>
 <pre class="r"><code>library(&quot;workflowr&quot;)
 library(&quot;ggplot2&quot;)
 theme_set(theme_bw())</code></pre>
@@ -325,10 +325,12 @@ normal_dist &lt;- rnorm(5, mean = mean_value)</code></pre>
 <pre><code>Restoring files from ../archive/archive.Rmd</code></pre>
 <pre class="r"><code>str(restored)</code></pre>
 <pre><code>List of 2
- $ mean_value :List of 2
+ $ mean_value :List of 3
+  ..$ 393a8dc: int 3
   ..$ 74dd2e3: int 7
   ..$ c207e3c: int 7
- $ normal_dist:List of 2
+ $ normal_dist:List of 3
+  ..$ 393a8dc: num [1:5] 3.36 3.68 3.31 2.6 3.97
   ..$ 74dd2e3: num [1:5] 7.47 7.15 8.54 8.34 6.81
   ..$ c207e3c: num [1:5] 7.84 5.63 7.69 7.01 6.84</code></pre>
 <p>Analyze them.</p>
@@ -348,7 +350,7 @@ ggplot(d, aes(x = mean_set, y = error, label = commit)) +
 <p>The function currently use non-standard evaluation tricks so that the objects can be directly passed (instead of creating a named list). This works great unless they are embedded inside of another function. Do we expect it will be common to embed these functions within other functions? If yes, we need to make standard evaluation options avaialable as well (e.g. dplyr has the non-standard evalation function <code>select</code> and the corresponding standard evalation <code>select_</code> for use inside functions).</p>
 <p>What beyond the sha1? The commit message? The date?</p>
 <p>How to commit them? Have <code>wflow_commit</code> check the archive directory? This may need to wait until a configuration file is implemented.</p>
-<p>What about the files created while testing? These will have the wrong commit.</p>
+<p>What about the files created while testing? These will have the wrong commit. Need some mechanism for detecting and removing archives created by files with non-saved changes.</p>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session Information</h2>
@@ -375,9 +377,8 @@ loaded via a namespace (and not attached):
  [1] Rcpp_0.12.9      digest_0.6.10    rprojroot_1.2    plyr_1.8.4      
  [5] grid_3.3.2       gtable_0.1.2     backports_1.0.5  git2r_0.18.0    
  [9] magrittr_1.5     scales_0.4.0     evaluate_0.10    stringi_1.1.1   
-[13] rstudioapi_0.6   labeling_0.3     tools_3.3.2      stringr_1.1.0   
-[17] munsell_0.4.3    yaml_2.1.14      rsconnect_0.4.3  colorspace_1.2-6
-[21] htmltools_0.3.5  knitr_1.15.1    </code></pre>
+[13] labeling_0.3     tools_3.3.2      stringr_1.1.0    munsell_0.4.3   
+[17] yaml_2.1.14      colorspace_1.2-6 htmltools_0.3.5  knitr_1.15.1    </code></pre>
 </div>
 
 <hr>
