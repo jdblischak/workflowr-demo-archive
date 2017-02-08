@@ -32,20 +32,20 @@ normal_dist <- rnorm(5, mean = mean_value)
 Archive them.
 
 ```{r archive}
-wflow_archive(mean_value, normal_dist)
+wflow_archive(mean_value, normal_dist, subdir = "archive.Rmd")
 ```
 
 Restore them.
 
 ```{r restore}
-restored <- wflow_restore(mean_value, normal_dist)
+restored <- wflow_restore(mean_value, normal_dist, subdir = "archive.Rmd")
 str(restored)
 ```
 
 Analyze them.
 
 ```{r analysis}
-mean_set <- sapply(restored$mean_value, function(x) x)
+mean_set <- unlist(restored$mean_value)
 mean_estimate <- sapply(restored$normal_dist, function(x) mean(x))
 error <- abs(mean_set - mean_estimate)
 d <- data.frame(mean_set, error, commit = names(error))
@@ -57,11 +57,6 @@ ggplot(d, aes(x = mean_set, y = error, label = commit)) +
 ```
 
 ## Decisions
-
-The functions `wflow_archive` and `wflow_restore` use the name of the file to
-save and load the objects. Thus this only works if the file is knit. Running the
-chunks individually (e.g. "Run All" in RStudio) cannot access the name of the
-current file. What do we want the behaviour to be?
 
 The function currently use non-standard evaluation tricks so that the objects
 can be directly passed (instead of creating a named list). This works great
