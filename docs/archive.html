@@ -309,8 +309,8 @@ div.tocify {
 </div>
 
 
-<p><strong>Last updated:</strong> 2017-02-06</p>
-<p><strong>Code version:</strong> 4703321</p>
+<p><strong>Last updated:</strong> 2017-02-08</p>
+<p><strong>Code version:</strong> ed2aae2</p>
 <pre class="r"><code>library(&quot;workflowr&quot;)
 library(&quot;ggplot2&quot;)
 theme_set(theme_bw())</code></pre>
@@ -318,25 +318,27 @@ theme_set(theme_bw())</code></pre>
 <pre class="r"><code>mean_value &lt;- sample(1:10, size = 1)
 normal_dist &lt;- rnorm(5, mean = mean_value)</code></pre>
 <p>Archive them.</p>
-<pre class="r"><code>wflow_archive(mean_value, normal_dist)</code></pre>
+<pre class="r"><code>wflow_archive(mean_value, normal_dist, subdir = &quot;archive.Rmd&quot;)</code></pre>
 <pre><code>Archive files will be saved in ../archive/archive.Rmd</code></pre>
 <p>Restore them.</p>
-<pre class="r"><code>restored &lt;- wflow_restore(mean_value, normal_dist)</code></pre>
+<pre class="r"><code>restored &lt;- wflow_restore(mean_value, normal_dist, subdir = &quot;archive.Rmd&quot;)</code></pre>
 <pre><code>Restoring files from ../archive/archive.Rmd</code></pre>
 <pre class="r"><code>str(restored)</code></pre>
 <pre><code>List of 2
- $ mean_value :List of 4
+ $ mean_value :List of 5
   ..$ 393a8dc: int 3
   ..$ 4703321: int 10
   ..$ 74dd2e3: int 7
   ..$ c207e3c: int 7
- $ normal_dist:List of 4
+  ..$ ed2aae2: int 10
+ $ normal_dist:List of 5
   ..$ 393a8dc: num [1:5] 3.36 3.68 3.31 2.6 3.97
   ..$ 4703321: num [1:5] 9.08 10.28 8.56 10.2 10.32
   ..$ 74dd2e3: num [1:5] 7.47 7.15 8.54 8.34 6.81
-  ..$ c207e3c: num [1:5] 7.84 5.63 7.69 7.01 6.84</code></pre>
+  ..$ c207e3c: num [1:5] 7.84 5.63 7.69 7.01 6.84
+  ..$ ed2aae2: num [1:5] 9.31 9.53 10.56 11.09 9.38</code></pre>
 <p>Analyze them.</p>
-<pre class="r"><code>mean_set &lt;- sapply(restored$mean_value, function(x) x)
+<pre class="r"><code>mean_set &lt;- unlist(restored$mean_value)
 mean_estimate &lt;- sapply(restored$normal_dist, function(x) mean(x))
 error &lt;- abs(mean_set - mean_estimate)
 d &lt;- data.frame(mean_set, error, commit = names(error))
@@ -348,7 +350,6 @@ ggplot(d, aes(x = mean_set, y = error, label = commit)) +
 <p><img src="figure/archive.Rmd/analysis-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="decisions" class="section level2">
 <h2>Decisions</h2>
-<p>The functions <code>wflow_archive</code> and <code>wflow_restore</code> use the name of the file to save and load the objects. Thus this only works if the file is knit. Running the chunks individually (e.g. “Run All” in RStudio) cannot access the name of the current file. What do we want the behaviour to be?</p>
 <p>The function currently use non-standard evaluation tricks so that the objects can be directly passed (instead of creating a named list). This works great unless they are embedded inside of another function. Do we expect it will be common to embed these functions within other functions? If yes, we need to make standard evaluation options avaialable as well (e.g. dplyr has the non-standard evalation function <code>select</code> and the corresponding standard evalation <code>select_</code> for use inside functions).</p>
 <p>What to restore beyond the sha1 for each commit? The commit message? The date?</p>
 <p>How to commit the archive files? Have <code>wflow_commit</code> check the archive directory? This may need to wait until a configuration file is implemented.</p>
@@ -373,16 +374,14 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_0.3.0 ggplot2_2.1.0   rmarkdown_1.3  
+[1] ggplot2_2.1.0   workflowr_0.3.0 rmarkdown_1.3  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.9      knitr_1.15.1     magrittr_1.5     devtools_1.12.0 
- [5] munsell_0.4.3    colorspace_1.2-6 R6_2.2.0         stringr_1.1.0   
- [9] httr_1.0.0       plyr_1.8.4       tools_3.3.2      grid_3.3.2      
-[13] gtable_0.1.2     git2r_0.18.0     withr_1.0.2      htmltools_0.3.5 
-[17] yaml_2.1.14      rprojroot_1.2    digest_0.6.10    curl_0.9.1      
-[21] rsconnect_0.4.3  memoise_1.0.0    evaluate_0.10    labeling_0.3    
-[25] stringi_1.1.1    scales_0.4.0     backports_1.0.5 </code></pre>
+ [1] Rcpp_0.12.9      digest_0.6.10    rprojroot_1.2    plyr_1.8.4      
+ [5] grid_3.3.2       gtable_0.1.2     backports_1.0.5  git2r_0.18.0    
+ [9] magrittr_1.5     scales_0.4.0     evaluate_0.10    stringi_1.1.1   
+[13] labeling_0.3     tools_3.3.2      stringr_1.1.0    munsell_0.4.3   
+[17] yaml_2.1.14      colorspace_1.2-6 htmltools_0.3.5  knitr_1.15.1    </code></pre>
 </div>
 
 <hr>
